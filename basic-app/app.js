@@ -1,6 +1,28 @@
 const http = require("http");
-const routes = require("./routes");
+const bodyParser = require("body-parser");
+const express = require("express");
 
-const server = http.createServer(routes);
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
+const app = express();
+
+// using middlewares
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", (req, res, next) => {
+  console.log("Middleware always executes...");
+  next(); // continue execution or send  a response
+});
+
+// routes
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
+
+// routing error pages at the bottom
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page Not Found</h1>");
+});
+
+const server = http.createServer(app);
 
 server.listen(5000);
