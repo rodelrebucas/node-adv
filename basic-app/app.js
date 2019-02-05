@@ -10,6 +10,7 @@ const app = express();
 
 // using middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public"))); //allow access to static files
 app.use("/", (req, res, next) => {
   console.log("Middleware always executes...");
   next(); // continue execution or send  a response
