@@ -15,7 +15,11 @@ router.get("/", (req, res, next) => {
     prods: products,
     docTitle: "Shop",
     path: "/",
-    pageTitle: "Shop"
+    pageTitle: "Shop",
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCss: true
+    //layout: false // don't use main layout, special handlebars key, default = true
   });
 });
 

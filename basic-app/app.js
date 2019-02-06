@@ -5,11 +5,20 @@ const path = require("path");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const handleBars = require("express-handlebars");
 
 const app = express();
 
 // set global config
-app.set("view engine", "pug"); // set template engine
+app.engine(
+  "hbs",
+  handleBars({
+    layoutsDir: "views/layouts",
+    defaultLayout: "main-layout",
+    extname: "hbs"
+  })
+);
+app.set("view engine", "hbs"); // set template engine
 app.set("views", "views"); // set path to views; default views
 
 // using middlewares
