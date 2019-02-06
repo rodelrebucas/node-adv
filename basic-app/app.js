@@ -10,15 +10,15 @@ const handleBars = require("express-handlebars");
 const app = express();
 
 // set global config
-app.engine(
-  "hbs",
-  handleBars({
-    layoutsDir: "views/layouts",
-    defaultLayout: "main-layout",
-    extname: "hbs"
-  })
-);
-app.set("view engine", "hbs"); // set template engine
+// app.engine(
+//   "hbs",
+//   handleBars({
+//     layoutsDir: "views/layouts",
+//     defaultLayout: "main-layout",
+//     extname: "hbs"
+//   })
+// );
+app.set("view engine", "ejs"); // set template engine
 app.set("views", "views"); // set path to views; default views
 
 // using middlewares
@@ -36,7 +36,7 @@ app.use(shopRoutes);
 // routing error pages at the bottom
 app.use((req, res, next) => {
   // res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-  res.render("404");
+  res.render("404", { pageTitle: "Page Not Found..." });
 });
 
 const server = http.createServer(app);
