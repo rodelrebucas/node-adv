@@ -36,7 +36,7 @@ app.use(shopRoutes);
 // routing error pages at the bottom
 app.use((req, res, next) => {
   // res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-  res.render("404", { pageTitle: "Page Not Found..." });
+  res.render("404", { pageTitle: "Page Not Found...", path: "" });
 });
 
 const server = http.createServer(app);
