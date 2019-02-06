@@ -5,7 +5,8 @@ const path = require("path");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
-const handleBars = require("express-handlebars");
+const errorController = require("./controllers/error")
+//const handleBars = require("express-handlebars");
 
 const app = express();
 
@@ -30,14 +31,11 @@ app.use("/", (req, res, next) => {
 });
 
 // routes
-app.use("/admin", adminRoutes.routes);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 // routing error pages at the bottom
-app.use((req, res, next) => {
-  // res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-  res.render("404", { pageTitle: "Page Not Found...", path: "" });
-});
+app.use(errorController.get404);
 
 const server = http.createServer(app);
 
