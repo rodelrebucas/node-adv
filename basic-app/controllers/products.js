@@ -23,16 +23,17 @@ exports.postAddProduct = (req, res) => {
 
 exports.getProducts = (req, res, next) => {
     //   res.sendFile(path.join(rootDir, "views", "shop.html"));
-    const products = Product.fetchAll();
-    
-    res.render("shop", {
-      prods: products,
-      docTitle: "Shop",
-      path: "/",
-      pageTitle: "Shop",
-      hasProducts: products.length > 0,
-      activeShop: true,
-      productCss: true
-      //layout: false // don't use main layout, special handlebars key, default = true
+    Product.fetchAll(products => {
+        res.render("shop", {
+            prods: products,
+            docTitle: "Shop",
+            path: "/",
+            pageTitle: "Shop",
+            hasProducts: products.length > 0,
+            activeShop: true,
+            productCss: true
+            //layout: false // don't use main layout, special handlebars key, default = true
+        });
     });
+
 }
