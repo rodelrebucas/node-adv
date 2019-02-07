@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     //   res.sendFile(path.join(rootDir, "views", "add-product.html"));
-    res.render("add-product", {
+    res.render("admin/add-product", {
       pageTitle: "Add Product",
       path: "/admin/add-product",
       pageTitle: "Add Product",
@@ -15,25 +15,24 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res) => {
     console.log(req.body); // json format
 
-    const product = new Product(req.body.title);
+    const {title, imageUrl, description, price} = req.body;
+    const product = new Product(title, imageUrl, description, price);
     product.save();
 
     res.redirect("/");
 }
 
 exports.getProducts = (req, res, next) => {
-    //   res.sendFile(path.join(rootDir, "views", "shop.html"));
     Product.fetchAll(products => {
-        res.render("shop", {
+        res.render("admin/products", {
             prods: products,
-            docTitle: "Shop",
-            path: "/",
-            pageTitle: "Shop",
-            hasProducts: products.length > 0,
-            activeShop: true,
-            productCss: true
+            // docTitle: "Shop",
+            path: "/admin/products",
+            pageTitle: "Admin products",
+            // hasProducts: products.length > 0,
+            // activeShop: true,
+            // productCss: true    
             //layout: false // don't use main layout, special handlebars key, default = true
         });
     });
-
 }
