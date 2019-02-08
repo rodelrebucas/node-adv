@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
   console.log(req);
@@ -20,12 +21,12 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   const productId = req.params.id;
   Product.findById(productId, product => {
-      console.log("getProduct's callback execution start")
-      console.log("product:", product)
+    console.log("getProduct's callback execution start");
+    console.log("product:", product);
     res.render("shop/product-detail", {
       product: product,
       pageTitle: "Product Detail",
-      path:"/products"
+      path: "/products"
     });
   });
 };
@@ -52,10 +53,14 @@ exports.getCart = (req, res, next) => {
   });
 };
 
-exports.postCard = (req, res, next) => {
-    const id = req.body.id;
-    res.redirect("/cart");
-}
+exports.postCart = (req, res, next) => {
+  const id = req.body.id;
+
+  Product.findById(id, product => {
+      Cart.addProduct(id, product.price);
+  });
+  res.redirect("/cart");
+};
 
 exports.getOrders = (req, res, next) => {
   res.render("shop/orders", {
