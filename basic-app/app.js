@@ -14,6 +14,8 @@ const Product = require("./models/product");
 const User = require("./models/user");
 const Cart = require("./models/cart");
 const CartItem = require("./models/cart-item");
+const Order = require("./models/order");
+const OrderItem = require("./models/order-items");
 
 const app = express();
 
@@ -60,14 +62,18 @@ app.use(errorController.get404);
 const server = http.createServer(app);
 
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
-User.hasMany(Product);
-User.hasOne(Cart);
+User.hasMany(Product); // product contains fk reference to user
+User.hasOne(Cart); // cart contains fk reference to user
 Cart.belongsTo(User); // optional
 Cart.belongsToMany(Product, { through: CartItem });
 Product.belongsToMany(Cart, { through: CartItem });
+Order.belongsTo(User);
+User.hasMany(Order); // order contains fk ref to user
+Order.belongsToMany(Product, { through: OrderItem });
 
 sequelize
-  .sync({ force: true }) // overwrite , for dev purposes
+  // .sync({ force: true }) // overwrite , for dev purposes
+  .sync()
   .then(res => {
     // console.log(res);
     // create a dummy user
