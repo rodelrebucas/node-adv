@@ -2,11 +2,12 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
-const mongoConnect = require('./util/db').mongoConnect;
+// const mongoConnect = require("./util/db").mongoConnect;
 
 //const handleBars = require("express-handlebars");
 
@@ -14,6 +15,7 @@ const sequelize = require("./util/db");
 
 const Product = require("./models/product");
 const User = require("./models/user");
+
 // const Cart = require("./models/cart");
 // const CartItem = require("./models/cart-item");
 // const Order = require("./models/order");
@@ -39,11 +41,10 @@ app.use(express.static(path.join(__dirname, "public"))); //allow access to stati
 
 // attach  a user in the request
 app.use((req, res, next) => {
-  User.findById('5c68012f15c37870d4d2f46d')
+  User.findById("5c6935362fcc8801ce30aaaa")
     .then(user => {
       if (user) {
-        console.log(user)
-        req.user = new User(user.name, user.email, user.cart, user._id);
+        req.user = user;
         next();
       }
     })
@@ -62,6 +63,23 @@ app.use(shopRoutes);
 // routing error pages at the bottom
 app.use(errorController.get404);
 
-mongoConnect(() => { 
-  app.listen(3000)
-})
+mongoose
+  .connect("mongodb://test:test@localhost:27017/development")
+  .then(res => {
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: "rodel",
+          email: "emaii@sadf.com",
+          cart: {
+            items: []
+          }
+        });
+        user.save();
+      }
+    });
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });

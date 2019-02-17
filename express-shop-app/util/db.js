@@ -1,3 +1,5 @@
+// *Note: Unused file. For reference purposes only
+
 const mongo = require("mongodb");
 const MongoClient = mongo.MongoClient;
 
