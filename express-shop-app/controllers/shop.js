@@ -8,7 +8,8 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         // docTitle: "Shop",
         path: "/products",
-        pageTitle: "All Products"
+        pageTitle: "All Products",
+        isAuthenticated: req.session.isLoggedIn
         // hasProducts: products.length > 0,
         // activeShop: true,
         // productCss: true
@@ -26,7 +27,8 @@ exports.getProduct = (req, res, next) => {
     res.render("shop/product-detail", {
       product: product,
       pageTitle: "Product Detail",
-      path: "/products"
+      path: "/products",
+      isAuthenticated: req.session.isLoggedIn
     });
   });
 };
@@ -37,7 +39,8 @@ exports.getIndex = (req, res, next) => {
       res.render("shop/index", {
         prods: products,
         pageTitle: "Shop",
-        path: "/"
+        path: "/",
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -53,7 +56,8 @@ exports.getCart = (req, res, next) => {
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",
-        products: products
+        products: products,
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => console.log(err));
@@ -72,11 +76,12 @@ exports.postCart = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  Order.find({ 'user.userId': req.user._id }).then(orders => {
+  Order.find({ "user.userId": req.user._id }).then(orders => {
     res.render("shop/orders", {
       path: "/orders",
       pageTitle: "Your orders",
-      orders: orders
+      orders: orders,
+      isAuthenticated: req.session.isLoggedIn
     });
   });
 };
@@ -84,20 +89,21 @@ exports.getOrders = (req, res, next) => {
 exports.getCheckout = (req, res, next) => {
   res.render("shop/cart", {
     path: "/checkout",
-    pageTitle: "Checkout cart"
+    pageTitle: "Checkout cart",
+    isAuthenticated: req.session.isLoggedIn
   });
 };
 
 exports.postDeleteCartItem = (req, res, next) => {
   const id = req.body.id;
 
-  req.user.removeFromCart(id).then(() => {
+  req.session.userremoveFromCart(id).then(() => {
     res.redirect("/cart");
   });
 };
 
 exports.postOrder = (req, res, next) => {
-  req.user
+  req.session.user
     .populate("cart.items.productId")
     .execPopulate()
     .then(user => {
