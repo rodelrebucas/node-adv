@@ -7,15 +7,15 @@
             <% if (orders.length <= 0 ) { %>
                 <h1>Nothing there!</h1>
             <% } else { %>
-                <ul>
+                <ul class="orders">
                     <% orders.forEach(order => { %>
-                        <li># <%= order.id %></li>
-                        <ul>
-                            <% order.products.forEach(product => { %>
-                                <li><%= product.title %> (<%= product.orderItem.quantity %>)</li>
-                            <% });%>
-                        </ul>
-                    <% });%>
+                        <li class="orders__item">Order Id: # <%= order._id.toString() %></li>
+                        <% order.items.forEach(product => { %>
+                            <ul class="orders__products">
+                                <li class="orders__products-item"><%= product.title %> (<%= product.quantity %>)</li>
+                            </ul>
+                        <% });%>
+                    <% }) %>
                 </ul>
             <% } %>
         </main>

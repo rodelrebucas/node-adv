@@ -6,16 +6,18 @@ const path = require("path");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
+const mongoConnect = require('./util/db').mongoConnect;
+
 //const handleBars = require("express-handlebars");
 
 const sequelize = require("./util/db");
 
 const Product = require("./models/product");
 const User = require("./models/user");
-const Cart = require("./models/cart");
-const CartItem = require("./models/cart-item");
-const Order = require("./models/order");
-const OrderItem = require("./models/order-items");
+// const Cart = require("./models/cart");
+// const CartItem = require("./models/cart-item");
+// const Order = require("./models/order");
+// const OrderItem = require("./models/order-items");
 
 const app = express();
 
@@ -37,12 +39,13 @@ app.use(express.static(path.join(__dirname, "public"))); //allow access to stati
 
 // attach  a user in the request
 app.use((req, res, next) => {
-  User.findById(1)
+  User.findById('5c68012f15c37870d4d2f46d')
     .then(user => {
       if (user) {
-        req.user = user;
+        console.log(user)
+        req.user = new User(user.name, user.email, user.cart, user._id);
+        next();
       }
-      next();
     })
     .catch(err => console.log(err));
 });
@@ -59,41 +62,6 @@ app.use(shopRoutes);
 // routing error pages at the bottom
 app.use(errorController.get404);
 
-const server = http.createServer(app);
-
-Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
-User.hasMany(Product); // product contains fk reference to user
-User.hasOne(Cart); // cart contains fk reference to user
-Cart.belongsTo(User); // optional
-Cart.belongsToMany(Product, { through: CartItem });
-Product.belongsToMany(Cart, { through: CartItem });
-Order.belongsTo(User);
-User.hasMany(Order); // order contains fk ref to user
-Order.belongsToMany(Product, { through: OrderItem });
-
-sequelize
-  // .sync({ force: true }) // overwrite , for dev purposes
-  .sync()
-  .then(res => {
-    // console.log(res);
-    // create a dummy user
-    return User.findById(1);
-  })
-  .then(user => {
-    if (!user) {
-      return User.create({
-        name: "dev",
-        email: "dev@gmail.com"
-      });
-    }
-    return user;
-  })
-  .then(user => {
-    return user.createCart();
-  })
-  .then(user => {
-    app.listen(5000);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+mongoConnect(() => { 
+  app.listen(3000)
+})
