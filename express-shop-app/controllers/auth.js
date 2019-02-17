@@ -5,7 +5,8 @@ exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     path: "/login",
     pageTitle: "Login Page",
-    isAuthenticated: false
+    isAuthenticated: false,
+    errorMessage: req.flash("error")
   });
 };
 
@@ -15,6 +16,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
+        req.flash("error", "Invalid email or password.");
         return res.redirect("/login");
       }
       bcrypt
@@ -30,6 +32,7 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           }
+          req.flash("error", "Invalid email or password.");
           res.redirect("/login");
         }) // failed
         .catch(err => res.redirect("/login"));
@@ -46,12 +49,13 @@ exports.postLogout = (req, res, next) => {
 };
 
 exports.postSignUp = (req, res, next) => {
-  User.findOne({ ...req.body })
+  User.findOne({ email: req.body.email })
     .then(userDoc => {
       if (userDoc) {
+        req.flash("error", "User exist.");
         return res.redirect("/signup");
       }
-      return bccrypt
+      return bcrypt
         .hash(req.body.password, 12)
         .then(password => {
           const user = User({
@@ -72,9 +76,10 @@ exports.postSignUp = (req, res, next) => {
 
 exports.getSignUp = (req, res, next) => {
   //   res.setHeader('Set-Cookie', 'loggedIn=True')
+  let errorMessage = req.flash("error");
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Sign Up",
-    isAuthenticated: false
+    errorMessage: errorMessage
   });
 };

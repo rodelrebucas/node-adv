@@ -11,7 +11,7 @@ const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const authRoutes = require("./routes/auth");
 const csrf = require("csurf");
-
+const flash = require("connect-flash");
 // const mongoConnect = require("./util/db").mongoConnect;
 
 //const handleBars = require("express-handlebars");
@@ -58,6 +58,7 @@ app.use(
   })
 );
 app.use(csrfProtection);
+app.use(flash());
 
 app.use("/", (req, res, next) => {
   console.log("Middleware always executes...");

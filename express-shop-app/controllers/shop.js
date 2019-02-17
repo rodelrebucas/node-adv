@@ -102,7 +102,7 @@ exports.postDeleteCartItem = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-  req.session.user
+  req.user
     .populate("cart.items.productId")
     .execPopulate()
     .then(user => {
@@ -111,7 +111,7 @@ exports.postOrder = (req, res, next) => {
       });
       const order = new Order({
         user: {
-          name: req.user.name,
+          email: req.user.email,
           userId: req.user
         },
         products: products
