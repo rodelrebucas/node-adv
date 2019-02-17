@@ -10,6 +10,8 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const authRoutes = require("./routes/auth");
+const csrf = require("csurf");
+
 // const mongoConnect = require("./util/db").mongoConnect;
 
 //const handleBars = require("express-handlebars");
@@ -30,6 +32,7 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "sessions"
 });
+const csrfProtection = csrf();
 // set global config
 // app.engine(
 //   "hbs",
@@ -45,6 +48,7 @@ app.set("views", "views"); // set path to views; default views
 // using middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public"))); //allow access to static files
+// session
 app.use(
   session({
     secret: "secrettext",
@@ -53,6 +57,7 @@ app.use(
     store: store
   })
 );
+app.use(csrfProtection);
 
 app.use("/", (req, res, next) => {
   console.log("Middleware always executes...");
@@ -70,6 +75,13 @@ app.use((req, res, next) => {
   } else {
     next();
   }
+});
+
+// csrf protection for every request
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
 });
 
 // routes
