@@ -4,9 +4,9 @@ This repository contains sample apps for learning express.
 
 ### Table of Contents:
 
-1. [express-shop-app](#express-shop-app) - a shop web app showing full implementations of express as a js framework.
+1. [express-shop-app](express-shop-app) - a shop web app showing full implementations of express as a js framework.
 
-2. [firebase-express](#firebase-express) - sample express and firebase app
+2. [firebase-express](firebase-express) - sample express and firebase app
 ---
 
 References:
