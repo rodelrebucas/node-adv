@@ -6,7 +6,12 @@ This repository contains sample apps for learning express.
 
 1. [express-shop-app](express-shop-app) - a shop web app showing full implementations of express as a js framework.
 
-2. [firebase-express](firebase-express) - sample express and firebase app
+2. [firebase-express](firebase-express) - sample express and firebase app.
+
+3. [express-rest-app](express-rest-app) - rest api sample.
+
+4. [express-rest-structure-boilerplate](express-rest-structure-boilerplate) - production boilerplate for express.
+
 ---
 
 References:
