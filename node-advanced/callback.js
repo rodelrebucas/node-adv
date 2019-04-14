@@ -45,3 +45,13 @@ delay(1, () => {
 
 // ---
 console.log("Done Ticking");
+
+
+// Start Ticking
+// Replaced immediately:  YYYYYYY YY YYYYYYYYYYY
+// Replaced at next tick:  ZZZZZZZ ZZ ZZZZZ
+// Done Ticking
+// Replaced immediately using promise:  ppppppp pp ppppppppppp
+// Wait at minimum 1 second
+// Wait at minimum 2 seconds
+// Wait at minimum 3 seconds
