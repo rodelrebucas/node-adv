@@ -12,9 +12,9 @@ hideString("Replace me immediately", str => {
 // Asynchronous I
 const asyncHideString = (str, done) => {
   // Invoke on next loop on event loop
-  // process.nextTick(() => {
-  done(str.replace(/[a-zA-Z]/g, "Z"));
-  // });
+  process.nextTick(() => {
+    done(str.replace(/[a-zA-Z]/g, "Z"));
+  });
 };
 asyncHideString("Replace me later", str =>
   console.log("Replaced at next tick: ", str)
@@ -46,11 +46,10 @@ delay(1, () => {
 // ---
 console.log("Done Ticking");
 
-
 // Start Ticking
 // Replaced immediately:  YYYYYYY YY YYYYYYYYYYY
-// Replaced at next tick:  ZZZZZZZ ZZ ZZZZZ
 // Done Ticking
+// Replaced at next tick:  ZZZZZZZ ZZ ZZZZZ
 // Replaced immediately using promise:  ppppppp pp ppppppppppp
 // Wait at minimum 1 second
 // Wait at minimum 2 seconds
