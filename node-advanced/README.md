@@ -5,6 +5,7 @@ Contents:
 1. [Callback pattern](callback.js)
 2. [Promises](promises.js)
 3. [Using Promisify](promisify.js)
+4. [Sequential execution with promise](sequential.js)
 
 ---
 
