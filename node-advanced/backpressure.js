@@ -7,7 +7,7 @@ const writeStream = createWriteStream("./copySample.mp4", {
   highWaterMark: 162820
 });
 
-// copy file by chunck
+// copy file by chunk
 readStream.on("data", chunk => {
   // capture result
   // true means can still write

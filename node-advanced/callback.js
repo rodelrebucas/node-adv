@@ -4,23 +4,29 @@ console.log("Start Ticking");
 // Synchronous
 // continuation passing style
 const hideString = (str, done) => done(str.replace(/[a-zA-Z]/g, "Y"));
-
 // pass the done callback
-hideString("Replace me now", str => {
+hideString("Replace me immediately", str => {
   console.log("Replaced immediately: ", str);
 });
 
 // Asynchronous I
 const asyncHideString = (str, done) => {
   // Invoke on next loop on event loop
-  process.nextTick(() => {
-    done(str.replace(/[a-zA-Z]/g, "Z"));
-  });
+  // process.nextTick(() => {
+  done(str.replace(/[a-zA-Z]/g, "Z"));
+  // });
 };
-
 asyncHideString("Replace me later", str =>
   console.log("Replaced at next tick: ", str)
 );
+
+const promiseHideString = str =>
+  new Promise(resolves => {
+    resolves(str.replace(/[a-zA-Z]/g, "p"));
+  });
+promiseHideString("Replace me immediately").then(str => {
+  console.log("Replaced immediately using promise: ", str);
+});
 
 // Asynchronous II with setTimeout
 const delay = (seconds, callback) => {

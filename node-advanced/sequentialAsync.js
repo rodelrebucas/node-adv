@@ -7,8 +7,8 @@ const delay = seconds =>
 
 const sequential = async seconds => {
   try {
-    await seconds;
-    console.log(`Awaited ${seconds}`);
+    await delay(2);
+    console.log("Awaited 2");
     await (seconds + 1);
     console.log(`Awaited ${seconds + 1}`);
     await (seconds + 2);
