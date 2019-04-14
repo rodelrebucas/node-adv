@@ -3,6 +3,7 @@
 Contents:
 
 1. [Callback pattern](callback.js)
+2. [Promises](promises.js)
 
 ---
 
