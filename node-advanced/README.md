@@ -12,6 +12,8 @@ Contents:
 8. [Creating custom readable streams](customReadableStreams.js)
 9. [Reading streams](readingStreams.js)
 10. [writeable streams](writeableStreams.js)
+11. [backpressure](backpressure.js)
+12. [piping stream](pipingStreams.js)
 
 ---
 
