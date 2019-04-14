@@ -25,7 +25,7 @@ asyncHideString("Replace me later", str =>
 // Asynchronous II with setTimeout
 const delay = (seconds, callback) => {
   // Minimum wait time before pushing to queue for stack execution
-  setTimeout(callback, seconds * 1000);
+  setTimeout(callback, seconds * 1000); // task, see also micro task
 };
 
 delay(3, () => console.log("Wait at minimum 3 seconds"));
