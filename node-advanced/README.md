@@ -14,6 +14,8 @@ Contents:
 10. [writeable streams](writeableStreams.js)
 11. [backpressure](backpressure.js)
 12. [piping stream](pipingStreams.js)
+13. [transform streams](transform.js)
+14. [range request to streams (streaming videos)](rangeRequest.js)
 
 ---
 
