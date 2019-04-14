@@ -8,6 +8,10 @@ const delay = seconds =>
 const sequential = seconds =>
   Promise.resolve()
     .then(() => console.log("Started"))
+    .then(() => {
+      console.log("Delay after started");
+      return delay(seconds);
+    })
     .then(() => console.log("Started already..."))
     .then(() => {
       console.log(`Now waiting for ${seconds} second/s`);
