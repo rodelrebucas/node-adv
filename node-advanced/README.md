@@ -9,6 +9,9 @@ Contents:
 5. [Using async to achieve sequential](sequentialAsync.js)
 6. [Using streams](streams.js)
 7. [Using buffer](buffer.js)
+8. [Creating custom readable streams](customReadableStreams.js)
+9. [Reading streams](readingStreams.js)
+10. [writeable streams](writeableStreams.js)
 
 ---
 
