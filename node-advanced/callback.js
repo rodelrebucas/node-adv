@@ -1,6 +1,15 @@
 // Callback pattern
 console.log("Start Ticking");
 
+// Async with promise (next tick)
+const promiseHideString = str =>
+  new Promise(resolves => {
+    resolves(str.replace(/[a-zA-Z]/g, "p"));
+  });
+promiseHideString("Replace me immediately").then(str => {
+  console.log("Replaced immediately using promise: ", str);
+});
+
 // Synchronous
 // continuation passing style
 const hideString = (str, done) => done(str.replace(/[a-zA-Z]/g, "Y"));
@@ -19,14 +28,6 @@ const asyncHideString = (str, done) => {
 asyncHideString("Replace me later", str =>
   console.log("Replaced at next tick: ", str)
 );
-
-const promiseHideString = str =>
-  new Promise(resolves => {
-    resolves(str.replace(/[a-zA-Z]/g, "p"));
-  });
-promiseHideString("Replace me immediately").then(str => {
-  console.log("Replaced immediately using promise: ", str);
-});
 
 // Asynchronous II with setTimeout
 const delay = (seconds, callback) => {

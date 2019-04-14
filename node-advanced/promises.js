@@ -10,8 +10,8 @@ const delay = seconds =>
       resolves(`Resolved after: ${seconds}`);
     }, seconds * 1000);
   });
-delay(4)
-  .then(returned => console.log(returned, ", Delayed for 2 seconds"))
+delay(3)
+  .then(returned => console.log(returned, ", Delayed for 3 seconds"))
   .catch(err => console.log(`catching error: ${err}`));
 
 // First Tick

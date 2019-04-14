@@ -1,7 +1,7 @@
 const delay = seconds =>
   new Promise(resolves => {
-    // Just execute resolves
-    setTimeout(resolves("Delay done..."), seconds * 1000);
+    // Just execute resolves immediately
+    setTimeout(() => resolves("Delay done..."), seconds * 1000);
   });
 
 // execute at next tick
@@ -10,9 +10,9 @@ const sequential = seconds =>
     .then(() => console.log("Started"))
     .then(() => {
       console.log("Delay after started");
-      return delay(seconds);
+      return delay(5);
     })
-    .then(() => console.log("Started already..."))
+    .then(msg => console.log(msg))
     .then(() => {
       console.log(`Now waiting for ${seconds} second/s`);
       return delay(seconds);
@@ -21,3 +21,10 @@ const sequential = seconds =>
 
 sequential(1);
 console.log("Starting sequential");
+
+// Starting sequential
+// Started
+// Delay after started
+// Started already...
+// Now waiting for 1 second/s
+// Delay done...
