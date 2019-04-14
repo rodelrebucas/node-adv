@@ -6,6 +6,9 @@ Contents:
 2. [Promises](promises.js)
 3. [Using Promisify](promisify.js)
 4. [Sequential execution with promise](sequential.js)
+5. [Using async to achieve sequential](sequentialAsync.js)
+6. [Using streams](streams.js)
+7. [Using buffer](buffer.js)
 
 ---
 
