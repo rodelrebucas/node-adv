@@ -28,9 +28,8 @@ const delay = (seconds, callback) => {
   setTimeout(callback, seconds * 1000); // task, see also micro task
 };
 
-delay(3, () => console.log("Wait at minimum 3 seconds"));
-
 // Nested or sequential
+delay(3, () => console.log("Wait at minimum 3 seconds"));
 delay(1, () => {
   console.log("Wait at minimum 1 second");
   delay(1, () => {
