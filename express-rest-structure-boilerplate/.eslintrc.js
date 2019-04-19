@@ -4,7 +4,8 @@ module.exports = {
     node: true,
     // mocha: true, can be also set
   },
-  extends: ['eslint:recommended', 'airbnb-base'],
+  plugins: ['security'],
+  extends: ['eslint:recommended', 'airbnb-base', 'plugin:security/recommended'],
   parserOptions: {
     ecmaVersion: 2018,
   },
