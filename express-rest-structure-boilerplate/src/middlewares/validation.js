@@ -7,7 +7,7 @@ const checkErrors = (result) => {
     const { details } = result.error;
     const errors = [];
     details.map(o => errors.push(o.message));
-    errorResponse = new BadRequestResponse('Invalid request to project resource.', {
+    errorResponse = new BadRequestResponse('Invalid request to resource.', {
       errors,
     });
   }
