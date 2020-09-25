@@ -8,7 +8,7 @@ This repository contains sample apps for learning express.
 
 2. [express-rest-app](express-rest-app) - rest api sample.
 
-3. [express-rest-structure-boilerplate](express-rest-structure-boilerplate) - production boilerplate for express.
+3. [node-advanced](node-advanced) - Some advance concepts on node.
 
 ---
 
