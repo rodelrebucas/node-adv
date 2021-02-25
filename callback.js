@@ -1,7 +1,7 @@
 // Callback pattern
 console.log("Start Ticking");
 
-// Async with promise (next tick)
+// Async with promise (micro tasks)
 const promiseHideString = str =>
   new Promise(resolves => {
     resolves(str.replace(/[a-zA-Z]/g, "p"));
