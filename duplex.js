@@ -35,8 +35,8 @@ report.on("data", chunk => {
 });
 
 // pipe to throttle  as both read and write for delaying
-// pipe to report as writeable
-// then pipe to writeStream as readable
+// pipe to report as readable
+// then pipe to writeStream as writeable
 readStream
   .pipe(throttle)
   .pipe(report)
